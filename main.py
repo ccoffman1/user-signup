@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template,render_template_string
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -7,15 +7,17 @@ app.config['DEBUG'] = True
 
 @app.route("/welcome")
 def welcome():
-    
-    return render_template('welcome.html')
+    username = request.args.get("username")
+    return render_template('welcome.html', username=username)
 
 
 @app.route("/signup", methods=['POST','GET'])
 def index():
+    username = request.args.get("username")
 
     if request.method == 'GET':
-        return render_template('signup.html')
+        username = ""
+        return render_template('signup.html', username=username)
 
     if request.method == 'POST':
         username = request.form['username']
@@ -26,23 +28,23 @@ def index():
 #First doing just username verification
         if username == "":
             error = "Please enter a username."
-            return redirect("/signup")
+            return render_template("signup.html",username=username, error=error)
 
         if (len(username) < 3) or (len(username) > 20):
             error = "Username must be between 3 and 20 characters long."
-            return redirect("/signup")
+            return render_template("signup.html",username=username, error=error)
 
         space_test = username
         for i in list(space_test):
             if i == " ":
                 error = "Username cannot contain a space."
-                return redirect("/signup")
+                return render_template("signup.html",username=username, error=error)
 
         
 
 
-
-        return redirect("/welcome")
+#This is the working part
+        return render_template("welcome.html",username=username)
         
 
 
