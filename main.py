@@ -34,7 +34,7 @@ def index():
             user_error = "Please enter a username."
             
 
-        if (len(username) < 3) or (len(username) > 20):
+        elif (len(username) < 3) or (len(username) > 20):
             user_error = "Username must be between 3 and 20 characters long."
             
 
@@ -50,7 +50,7 @@ def index():
             password_error = "Please enter a password."
             
 
-        if (len(password) < 3) or (len(password) > 20):
+        elif (len(password) < 3) or (len(password) > 20):
             password_error = "Password must be between 3 and 20 characters long."
             
 
@@ -63,11 +63,11 @@ def index():
 
 # Password validation section 
 
-        if verify == None:
-            verify_error = "Please enter a password."
+        if verify == "":
+            verify_error = "Please re-enter a password."
             
 
-        if (len(verify) < 3) or (len(verify) > 20):
+        elif (len(verify) < 3) or (len(verify) > 20):
             verify_error = "Password must be between 3 and 20 characters long."
             
 
